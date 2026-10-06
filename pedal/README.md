@@ -10,9 +10,8 @@ uses Karabiner-Elements to turn them into:
 | --- | --- | --- |
 | tap **a** | Tab | next sentence (in the comment box: move to Save, then Cancel) |
 | hold **c** + tap **a** | Shift+Tab | previous sentence |
-| tap **c** | Enter (after a 250 ms wait for a double tap) | open the comment box / press the focused button |
+| tap **c** | Enter | open the comment box / press the focused button |
 | tap **b** | fn+Space, dictation | speak your comment |
-| double-tap **c** | Space | page down (the next **a** picks up from the top of the screen) |
 | hold **b** + tap **a** | ⌘Tab | switch apps |
 
 For the voice-to-text, fn+Space is wired up to [Wispr Flow](https://wisprflow.ai/r?MALCOLM63).
@@ -28,7 +27,6 @@ So a hands-free comment is: **c** to open the box, **b** to dictate, talk, **b**
    - Turn on Input Monitoring for `karabiner_grabber` and `karabiner_observer` under Privacy & Security.
    - Karabiner won't modify anything until both are approved. If something seems dead, these are the first thing to recheck.
 3. **Enable the pedal.** Plug it in, and in Karabiner's **Devices** tab turn on **Modify events** for "FootSwitch (PCsensor)".
-4. **Clear simple modifications for the device.** Remove any a→tab or c→enter entries under **Simple Modifications**, since those run first and would hide the raw keys from this rule.
 5. **Generate and add the rule.**
    - Paste the script into the JavaScript generator and copy the JSON it outputs.
    - Go to **Complex Modifications → Add your own rule**, paste the JSON, and save.
@@ -36,4 +34,4 @@ So a hands-free comment is: **c** to open the box, **b** to dictate, talk, **b**
 6. **Check the app switcher binding.** Make sure AltTab's trigger is ⌘⇥ in its Preferences → Controls. If it isn't, the native macOS switcher answers instead.
 7. **Verify.** Open **EventViewer** (from the Karabiner menu bar icon), hold B and tap A, and you should see `left_command` down followed by `tab`.
 
-The pedal's a/b/c output is its factory default, so it needs no configuration of its own. If you ever reprogram it with PCsensor's utility, update the `from` keys to match. The timing constants at the top of the script are the knobs to tune: shorten `DOUBLE_TAP_MS` if Enter feels laggy, or lengthen it if double-taps get missed.
+The pedal's a/b/c output is its factory default, so it needs no configuration of its own. If you ever reprogram it with PCsensor's utility, update the `from` keys to match. `ALONE_TIMEOUT_MS` at the top of the script is the knob to tune: a press of b or c held longer than that counts as a hold, not a tap.
