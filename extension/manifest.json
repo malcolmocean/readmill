@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Readmill",
+  "version": "0.1.0",
+  "description": "Step through any web page sentence by sentence (Tab / Enter, foot-pedal friendly) and leave margin comments saved as files on disk.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuwMgsC1u8wg6xE5+F38Hy2d0pWU0UJZd5kHdIET4siYxnxysn3Tj7dlezcY6Wr38y5PKyGu1G5oq7jqxdZEwxjKFaAdnq8pwLPQPbWqh9YW5sOxDQsFIxqebVazTT8EedqFNbngKrih8LKtVQIDY7gJG0aurdo5593gnUZ1mHuRF45OaYiCjcSIC2qpgrpuaZunKxKMxXAg+tOsYC52w9Tuh5yNlBKufa+4p0tr0kX9DUpze/xDpBHKlc+ZjnXqXrvdiDihrGQ3wkmqZXckNou17kwI1DeGgvoYYYDxd6crxrn/cBYTIN2YAieF0YJSizgCfc1T5111a9ezrsem+nwIDAQAB",
+  "permissions": ["nativeMessaging", "storage", "scripting", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_title": "Readmill: toggle on this page",
+    "default_icon": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" }
+  },
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": { "default": "Alt+Shift+R" },
+      "description": "Toggle Readmill on this page"
+    }
+  }
+}
