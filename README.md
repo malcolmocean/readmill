@@ -1,8 +1,8 @@
 # Readmill
 
 Step through any web page one sentence at a time and leave margin comments, all from
-the keyboard (or a foot pedal that sends Tab / Enter). It's the reader from `../latboto`,
-turned into a browser extension.
+the keyboard (or a foot pedal that sends Tab / Enter). It started as a reader built for one book,
+now a browser extension that works on any page.
 
 Comments are saved as plain files on your disk, one pair per page:
 
@@ -12,6 +12,9 @@ Comments are saved as plain files on your disk, one pair per page:
     read-html.json   ← the source of truth; safe to edit by hand
     read-html.md     ← readable copy, rewritten on every change
 ```
+
+There's a page about it at <https://creations.malcolmocean.com/readmill/> (source in `site/`),
+and [`pedal/`](pedal/) has the Karabiner-Elements setup for driving it with a USB foot pedal.
 
 ## Setup
 
