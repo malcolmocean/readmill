@@ -15,6 +15,8 @@ uses Karabiner-Elements to turn them into:
 | double-tap **c** | Space | page down (the next **a** picks up from the top of the screen) |
 | hold **b** + tap **a** | ⌘Tab | switch apps |
 
+For the voice-to-text, fn+Space is wired up to [Wispr Flow](https://wisprflow.ai/r?MALCOLM63).
+
 So a hands-free comment is: **c** to open the box, **b** to dictate, talk, **b** to stop, then
 **a** **c** to save.
 
