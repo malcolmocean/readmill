@@ -168,6 +168,14 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 6px 18px; }
   .diagram .branch::before, .diagram .branch::after { display: none; }
   .diagram .node { min-height: 0; }
 }
+
+button.copy-rule {
+  font: 700 15px/1.2 "Maven Pro", sans-serif; cursor: pointer;
+  padding: 4px 12px; border-radius: 8px; margin: 2px 0;
+  background: var(--accent); color: #fff; border: 1px solid var(--accent);
+}
+button.copy-rule:hover { background: var(--accent-hi); border-color: var(--accent-hi); }
+button.copy-rule.done { background: var(--panel); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -222,7 +230,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 6px 18px; }
       <li><svg class="pd" viewBox="0 42 300 128" role="img" aria-label="tap c"><use class="base" href="#pd-base"/><g class="k " transform="translate(46.4 106.3) rotate(-7)"><use href="#pd-key"/><text y="9">a</text></g><g class="k " transform="translate(150.0 100.0) rotate(0)"><use href="#pd-key"/><text y="9">b</text></g><g class="k tap" transform="translate(253.6 106.3) rotate(7)"><use href="#pd-key"/><text y="9">c</text></g></svg><div><p class="how">tap c</p><p class="what">Open a comment on the highlighted sentence.</p></div></li>
       <li><svg class="pd" viewBox="0 42 300 128" role="img" aria-label="tap b"><use class="base" href="#pd-base"/><g class="k " transform="translate(46.4 106.3) rotate(-7)"><use href="#pd-key"/><text y="9">a</text></g><g class="k tap" transform="translate(150.0 100.0) rotate(0)"><use href="#pd-key"/><text y="9">b</text></g><g class="k " transform="translate(253.6 106.3) rotate(7)"><use href="#pd-key"/><text y="9">c</text></g></svg><div><p class="how">tap b</p><p class="what">Start or stop dictating.</p></div></li>
       <li><svg class="pd" viewBox="0 42 300 128" role="img" aria-label="tap a, in the comment box"><use class="base" href="#pd-base"/><g class="k tap" transform="translate(46.4 106.3) rotate(-7)"><use href="#pd-key"/><text y="9">a</text></g><g class="k " transform="translate(150.0 100.0) rotate(0)"><use href="#pd-key"/><text y="9">b</text></g><g class="k " transform="translate(253.6 106.3) rotate(7)"><use href="#pd-key"/><text y="9">c</text></g></svg><div><p class="how">tap a, in the comment box</p><p class="what">Move to Save, then Cancel. <b>c</b> presses whichever is selected.</p></div></li>
-      <li><svg class="pd" viewBox="0 42 300 128" role="img" aria-label="hold b, tap a"><use class="base" href="#pd-base"/><g class="k tap" transform="translate(46.4 106.3) rotate(-7)"><use href="#pd-key"/><text y="9">a</text></g><g class="k hold" transform="translate(150.0 100.0) rotate(0)"><use href="#pd-key"/><text y="9">b</text></g><g class="k " transform="translate(253.6 106.3) rotate(7)"><use href="#pd-key"/><text y="9">c</text></g></svg><div><p class="how">hold b, tap a</p><p class="what">Switch apps (⌘Tab). Not Readmill, just handy.</p></div></li>
+      <li><svg class="pd" viewBox="0 42 300 128" role="img" aria-label="hold b, tap a"><use class="base" href="#pd-base"/><g class="k tap" transform="translate(46.4 106.3) rotate(-7)"><use href="#pd-key"/><text y="9">a</text></g><g class="k hold" transform="translate(150.0 100.0) rotate(0)"><use href="#pd-key"/><text y="9">b</text></g><g class="k " transform="translate(253.6 106.3) rotate(7)"><use href="#pd-key"/><text y="9">c</text></g></svg><div><p class="how">hold b, tap a</p><p class="what">Switch apps (⌘Tab), best with <a href="https://alt-tab-macos.netlify.app/">AltTab</a>. Not Readmill, just handy.</p></div></li>
   </ul>
 
   <h3>A note, start to finish</h3>
@@ -275,19 +283,40 @@ cd readmill
       </ul>
     </li>
     <li><b>Enable the pedal.</b> Plug it in, and in Karabiner’s <b>Devices</b> tab turn on <b>Modify events</b> for “FootSwitch (PCsensor)”.</li>
-    <li><b>Generate and add the rule.</b>
-      <ul>
-        <li>Paste the script below into the JavaScript generator and copy the JSON it outputs.</li>
-        <li>Go to <b>Complex Modifications → Add your own rule</b>, paste the JSON, and save.</li>
-        <li>If you had earlier versions of these rules, delete them so they don’t conflict.</li>
-      </ul>
-    </li>
-    <li><b>Check the app switcher binding.</b> Make sure AltTab’s trigger is ⌘⇥ in its Preferences → Controls. If it isn’t, the native macOS switcher answers instead.</li>
+    <li><b>Add the rule.</b> <button class="copy-rule" type="button" data-copy="karabiner-rule">Click this to copy</button>, then in Karabiner go to <b>Complex Modifications → Add your own rule using JavaScript</b>, paste it, and save. <span class="dim">(The rule is <a href="https://github.com/malcolmocean/readmill/blob/main/pedal/footswitch.karabiner.js">on GitHub</a> if you want to read it first.)</span></li>
+    <li><b>Install <a href="https://alt-tab-macos.netlify.app/">AltTab</a>.</b> Readmill doesn’t need it, but it’s amazing and highly recommended for sanity: hold <b>b</b>, tap <b>a</b> gets you a proper window switcher with previews, which you can step through with your foot. Run <code>brew install --cask alt-tab</code>, then make sure its trigger is ⌘⇥ in Preferences → Controls, or the built-in macOS switcher answers instead.</li>
     <li><b>Verify.</b> Open <b>EventViewer</b> (from the Karabiner menu bar icon), hold B and tap A, and you should see <code>left_command</code> down followed by <code>tab</code>.</li>
   </ol>
   <p>The pedal’s a/b/c output is its factory default, so it needs no configuration of its own. If you ever reprogram it with PCsensor’s utility, update the <code>from</code> keys to match. <code>ALONE_TIMEOUT_MS</code> at the top of the script is the knob to tune: a press of b or c held longer than that counts as a hold, not a tap.</p>
-  <p class="dim">The Karabiner script, also in the repo as <a href="https://github.com/malcolmocean/readmill/blob/main/pedal/footswitch.karabiner.js"><code>pedal/footswitch.karabiner.js</code></a>:</p>
-  <div class="codebox tall"><button class="copy" type="button">Copy</button><pre><code>// ECMAScript 5.1 — paste into Karabiner-Elements' JavaScript generator
+
+  <h2>Under the hood</h2>
+  <p>Readmill itself only listens for ordinary keys, so it works fine from a keyboard too. Here’s what each pedal press turns into:</p>
+  <div class="table-scroll"><table>
+    <thead><tr><th>Key</th><th>Pedal</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>R</kbd> or the toolbar icon</td><td></td><td>Turn Readmill on or off for this page</td></tr>
+      <tr><td><kbd>Tab</kbd></td><td>tap <b>a</b></td><td>Next sentence</td></tr>
+      <tr><td><kbd>⇧</kbd> <kbd>Tab</kbd></td><td>hold <b>c</b>, tap <b>a</b></td><td>Previous sentence</td></tr>
+      <tr><td><kbd>Enter</kbd></td><td>tap <b>c</b></td><td>Comment on the highlighted sentence</td></tr>
+      <tr><td><kbd>Tab</kbd> <kbd>Enter</kbd> in the box</td><td><b>a</b> <b>c</b></td><td>Save. <kbd>Tab</kbd> again moves on to Cancel, then to Delete on any earlier notes.</td></tr>
+      <tr><td><kbd>fn</kbd> <kbd>Space</kbd></td><td>tap <b>b</b></td><td>Dictation (handled by Wispr Flow, not Readmill)</td></tr>
+      <tr><td>click / double-click</td><td></td><td>Pick a sentence / comment on it</td></tr>
+    </tbody>
+  </table></div>
+  <p>Pages you’ve commented on turn Readmill on by themselves when you come back. If a page has changed so much that a sentence can’t be found, its note isn’t lost: it shows up under “unplaced” in the little status pill at the bottom right.</p>
+  <p>Browser extensions can’t write files to your disk, which is what the install script is for. It registers a storage script that the browser starts whenever Readmill saves or loads, and that exits when it’s done, so you never run a server. If it isn’t set up yet, notes wait in the browser and are written to disk once it is.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><a href="https://github.com/malcolmocean/readmill">Source on GitHub</a></span>
+    <span>Malcolm Ocean &amp; Claude, 2026</span>
+    <span><a href="/">more creations</a></span>
+  </div>
+</footer>
+
+<script type="text/plain" id="karabiner-rule">
+// ECMAScript 5.1 — paste into Karabiner-Elements' JavaScript generator
 //
 // PCsensor FootSwitch (default output: pedals send a / b / c)
 //   a        tap  → tab
@@ -344,35 +373,18 @@ function main() {
   };
 }
 
-main()</code></pre></div>
-
-  <h2>Under the hood</h2>
-  <p>Readmill itself only listens for ordinary keys, so it works fine from a keyboard too. Here’s what each pedal press turns into:</p>
-  <div class="table-scroll"><table>
-    <thead><tr><th>Key</th><th>Pedal</th><th>What it does</th></tr></thead>
-    <tbody>
-      <tr><td><kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>R</kbd> or the toolbar icon</td><td></td><td>Turn Readmill on or off for this page</td></tr>
-      <tr><td><kbd>Tab</kbd></td><td>tap <b>a</b></td><td>Next sentence</td></tr>
-      <tr><td><kbd>⇧</kbd> <kbd>Tab</kbd></td><td>hold <b>c</b>, tap <b>a</b></td><td>Previous sentence</td></tr>
-      <tr><td><kbd>Enter</kbd></td><td>tap <b>c</b></td><td>Comment on the highlighted sentence</td></tr>
-      <tr><td><kbd>Tab</kbd> <kbd>Enter</kbd> in the box</td><td><b>a</b> <b>c</b></td><td>Save. <kbd>Tab</kbd> again moves on to Cancel, then to Delete on any earlier notes.</td></tr>
-      <tr><td><kbd>fn</kbd> <kbd>Space</kbd></td><td>tap <b>b</b></td><td>Dictation (handled by Wispr Flow, not Readmill)</td></tr>
-      <tr><td>click / double-click</td><td></td><td>Pick a sentence / comment on it</td></tr>
-    </tbody>
-  </table></div>
-  <p>Pages you’ve commented on turn Readmill on by themselves when you come back. If a page has changed so much that a sentence can’t be found, its note isn’t lost: it shows up under “unplaced” in the little status pill at the bottom right.</p>
-  <p>Browser extensions can’t write files to your disk, which is what the install script is for. It registers a storage script that the browser starts whenever Readmill saves or loads, and that exits when it’s done, so you never run a server. If it isn’t set up yet, notes wait in the browser and are written to disk once it is.</p>
-</main>
-
-<footer>
-  <div class="wrap">
-    <span><a href="https://github.com/malcolmocean/readmill">Source on GitHub</a></span>
-    <span>Malcolm Ocean &amp; Claude, 2026</span>
-    <span><a href="/">more creations</a></span>
-  </div>
-</footer>
-
+main()
+</script>
 <script>
+document.querySelectorAll("[data-copy]").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var text = document.getElementById(btn.dataset.copy).textContent.trim() + "\n";
+    navigator.clipboard.writeText(text).then(function () {
+      btn.textContent = "Copied! Now paste it into Karabiner";
+      btn.classList.add("done");
+    }, function () { btn.textContent = "Couldn’t copy; grab it from GitHub instead"; });
+  });
+});
 document.querySelectorAll(".codebox .copy").forEach(function (btn) {
   btn.addEventListener("click", function () {
     var text = btn.parentNode.querySelector("code").textContent;

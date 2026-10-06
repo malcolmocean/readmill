@@ -27,11 +27,8 @@ So a hands-free comment is: **c** to open the box, **b** to dictate, talk, **b**
    - Turn on Input Monitoring for `karabiner_grabber` and `karabiner_observer` under Privacy & Security.
    - Karabiner won't modify anything until both are approved. If something seems dead, these are the first thing to recheck.
 3. **Enable the pedal.** Plug it in, and in Karabiner's **Devices** tab turn on **Modify events** for "FootSwitch (PCsensor)".
-5. **Generate and add the rule.**
-   - Paste the script into the JavaScript generator and copy the JSON it outputs.
-   - Go to **Complex Modifications → Add your own rule**, paste the JSON, and save.
-   - If you had earlier versions of these rules, delete them so they don't conflict.
-6. **Check the app switcher binding.** Make sure AltTab's trigger is ⌘⇥ in its Preferences → Controls. If it isn't, the native macOS switcher answers instead.
-7. **Verify.** Open **EventViewer** (from the Karabiner menu bar icon), hold B and tap A, and you should see `left_command` down followed by `tab`.
+4. **Add the rule.** In Karabiner go to **Complex Modifications → Add your own rule using JavaScript**, paste [`footswitch.karabiner.js`](footswitch.karabiner.js) as-is, and save.
+5. **Install [AltTab](https://alt-tab-macos.netlify.app/).** Readmill doesn't need it, but it's amazing and highly recommended for sanity: hold b + tap a gets you a proper window switcher with previews, which you can step through with your foot. Run `brew install --cask alt-tab`, then make sure its trigger is ⌘⇥ in Preferences → Controls, or the built-in macOS switcher answers instead.
+6. **Verify.** Open **EventViewer** (from the Karabiner menu bar icon), hold B and tap A, and you should see `left_command` down followed by `tab`.
 
 The pedal's a/b/c output is its factory default, so it needs no configuration of its own. If you ever reprogram it with PCsensor's utility, update the `from` keys to match. `ALONE_TIMEOUT_MS` at the top of the script is the knob to tune: a press of b or c held longer than that counts as a hold, not a tap.
